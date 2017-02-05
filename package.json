@@ -1,0 +1,27 @@
+{
+    "name": "Fbook_Server",
+    "version": "1.0.0",
+    "description": "this is server for Fbook",
+    "main": "start.js",
+    "scripts": {
+        "start": "node start.js"
+    },
+    "keywords": [
+        "koa",
+        "async",
+        "Fbook"
+    ],
+    "author": "Michael Liao",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "babel-core": "6.13.2",
+        "babel-polyfill": "6.13.0",
+        "babel-preset-es2015-node6": "0.3.0",
+        "babel-preset-stage-3": "6.5.0",
+        "koa": "2.0.0",
+        "koa-router": "7.0.0",
+        "koa-bodyparser": "3.2.0",
+        "sequelize": "3.24.1",
+        "mysql": "2.11.1"
+    }
+}
