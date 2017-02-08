@@ -1,4 +1,4 @@
-const Koa = require('Koa');
+const Koa = require('koa');
 const app = new Koa();
 const bodyParser = require('koa-bodyparser');
 const controller = require('./controller')
