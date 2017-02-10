@@ -4,7 +4,11 @@ module.exports = {
   logIn: async (username,password) => {
       let user = await User.findAll({
         where: {
-          username: 'pei',
+          password: password,
+          $or:{
+            username: username,
+            email: username,
+          }
         }
       });
       console.log(`userService : ${user.length}`);
