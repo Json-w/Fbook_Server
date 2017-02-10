@@ -12,5 +12,27 @@ module.exports = {
         message: 'failure in login'
       })
     }
+  },
+
+  'POST /user/register': async (ctx, next)=>{
+    let user = {
+      username:ctx.request.body.username,
+      password:ctx.request.body.password,
+      email:ctx.request.body.email,
+      telephone:ctx.request.body.telephone,
+      address:ctx.request.body.address
+    }
+    let isRegisterSuccess = await users.register(user);
+    if(isRegisterSuccess){
+      ctx.rest({
+        code: 'success',
+        message: 'register success'
+      })
+    }else {
+      ctx.rest({
+        code: 'failure',
+        message: 'register failure'
+      })
+    }
   }
 }
