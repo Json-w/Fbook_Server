@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS `Fbook`.`user` (
   `telephone` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `address` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE(username),
+  UNIQUE(email))
 ENGINE = InnoDB;
 
 
