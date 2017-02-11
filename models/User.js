@@ -22,6 +22,7 @@ const User = sequelize.define('user',{
   email:Sequelize.STRING(45),
   telephone:Sequelize.STRING(45),
   address:Sequelize.STRING(45),
+  token: Sequelize.VIRTUAL,
 },{
   tableName: 'user',
   timestamps: false,
