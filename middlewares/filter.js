@@ -1,4 +1,4 @@
-const logedInUsers = require('../tokenRecord')
+const tokenRecord = require('../tokenRecord')
 const APIError = require('./rest').APIError;
 
 const noValidateUrls = ['/user/session','/user/register'];
@@ -13,7 +13,8 @@ module.exports = {
           }
       }
       let token = ctx.query.token;
-      for(logedInUser of logedInUsers){
+      console.log();
+      for(logedInUser of tokenRecord.logedInUsers){
         if(token === logedInUser.token){
           await next();
           return;

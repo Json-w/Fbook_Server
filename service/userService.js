@@ -1,7 +1,7 @@
 const User = require('../models/User')
 const APIError = require('../middlewares/rest').APIError;
 const uuidV4 = require('uuid/v4');
-var logedInUsers = require('../tokenRecord');
+var tokenRecord = require('../tokenRecord');
 
 async function checkUserExisted(user){
   let userFound = await User.findAll({
@@ -32,18 +32,18 @@ module.exports = {
       //todo remove id
       //user.id = 0;
       user['token'] = uuidV4();
-      var logedInUserWithoutCurrentUser = logedInUsers.filter((logedInUser)=>{
+      var logedInUserWithoutCurrentUser = tokenRecord.logedInUsers.filter((logedInUser)=>{
          logedInUser != users[0].username;
       })
       logedInUserWithoutCurrentUser.push(
         {
-          username:users[0].username,
+          user:user,
           token:users[0].token,
           time:new Date().getTime()
         });
 
-      logedInUsers = logedInUserWithoutCurrentUser
-      console.log(JSON.stringify(logedInUsers[0]));
+      tokenRecord.logedInUsers = logedInUserWithoutCurrentUser
+      console.log(JSON.stringify(tokenRecord.logedInUsers[0]));
       return user;
     },
 
