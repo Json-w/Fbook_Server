@@ -27,6 +27,18 @@ module.exports = {
   },
 
   'GET /books': async (ctx, next)=>{
-    ctx.rest(await books.findAllBooks())
+    const findResult = await books.findAllBooks();
+    ctx.rest({
+      code: 'success',
+      result:findResult,
+    })
+  },
+
+  'GET /books/:userId': async (ctx, next)=>{
+    const findResult = await books.findBooksByUserId(ctx.params.userId);
+    ctx.rest({
+      code: 'success',
+      result:findResult,
+    });
   }
 }

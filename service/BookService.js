@@ -19,5 +19,17 @@ module.exports = {
       Book.belongsTo(User,{foreignKey: "user_id"});
       let books = await Book.findAll({include: [User]});
       return books;
+    },
+
+    findBooksByUserId: async (userId)=>{
+      Book.belongsTo(User,{foreignKey: "user_id"});
+      let books = await Book.findAll(
+        {
+          where:{
+            user_id : userId,
+          },
+          include: [User]
+        });
+      return books;
     }
 }
