@@ -1,7 +1,7 @@
 const tokenRecord = require('../tokenRecord')
 const APIError = require('./rest').APIError;
 
-const noValidateUrls = ['/user/session','/user/register'];
+const noValidateUrls = ['/user/session','/user/register','/user/douban/session'];
 module.exports = {
   tokenValidate:() => {
     return async (ctx, next) => {

@@ -28,6 +28,9 @@ module.exports = {
       });
       console.log(`userService : ${users.length}`);
       var user = users[0];
+      if(user == null){
+        return null;
+      }
       user.password = null;
       //todo remove id
       //user.id = 0;
@@ -38,7 +41,7 @@ module.exports = {
       logedInUserWithoutCurrentUser.push(
         {
           user:user,
-          token:users[0].token,
+          token:user.token,
           time:new Date().getTime()
         });
 
@@ -46,6 +49,47 @@ module.exports = {
       console.log(JSON.stringify(tokenRecord.logedInUsers[0]));
       return user;
     },
+
+  // this url is just for the js community.
+  logInWithDoubanAccount: async (username,password) => {
+    let doubanUser = {
+      username:username,
+      password:password,
+    }
+    let users = await User.findAll({
+      where: {
+        password: password,
+        $or:{
+          username: username,
+          email: username,
+        }
+      }
+    });
+    let userReturn;
+    console.log(`users in db:${JSON.stringify(users)}`);
+    if(users.length === 0){
+      console.log(`Douban user not in the db,create it into db`);
+      userReturn = await User.create(doubanUser);
+    }else{
+      console.log(`Douban user already existed in our db`);
+      userReturn = users[0];
+    }
+    userReturn['token'] = uuidV4();
+    console.log(`token of userReturn:${userReturn['token']}`);
+    var logedInUserWithoutCurrentUser = tokenRecord.logedInUsers.filter((logedInUser)=>{
+       logedInUser != userReturn.username;
+    })
+    logedInUserWithoutCurrentUser.push(
+      {
+        user:userReturn,
+        token:userReturn.token,
+        time:new Date().getTime()
+      });
+
+    tokenRecord.logedInUsers = logedInUserWithoutCurrentUser;
+    return userReturn;
+
+  },
 
   register: async (user) => {
       if(checkUserExisted){
