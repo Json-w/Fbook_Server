@@ -9,10 +9,11 @@ module.exports = {
       author:ctx.request.body.author,
       brief:ctx.request.body.brief,
       times:ctx.request.body.times,
+      imageUrl:ctx.request.body.imageUrl,
     }
     let token = ctx.query.token;
     console.log(`BookController.js:${token}`);
-    if(books.addBook(book, token)){
+    if(await books.addBook(book, token)){
       ctx.rest({
         code: 'success',
         message: 'add book success'
