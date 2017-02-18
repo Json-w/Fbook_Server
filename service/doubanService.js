@@ -126,6 +126,7 @@ function markBookAsRead(bookId, cookies) {
   rp.post(Object.assign({}, commonRequestOptions, {
       headers: {
         Cookie: `dbcl2="${cookies.dbcl2}"`,
+        'User-Agent': 'Chrome/56.0.2924.87'
       },
       url: getBookUrl(bookId),
       formData
