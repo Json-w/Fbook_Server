@@ -18,15 +18,25 @@ module.exports = {
     ctx.rest(await users.getDoubanLoginCaptcha());
   },
 
+  'POST /douban/markBookAsRead/:bookId':async(ctx, next) =>{
+    let bookId = ctx.params.bookId;
+    let cookies = ctx.request.body.cookies;
+    return users.markBookAsRead(bookId,cookies);
+  },
+
   'POST /user/douban/session': async (ctx, next)=>{
+    let captcha = null;
+    if(ctx.request.body.captchaSolution != undefined && ctx.request.body.captchaId != undefined){
+      captcha = {
+        solution:ctx.request.body.captchaSolution,
+        id:ctx.request.body.captchaId,
+      }
+    }
     let user = await users.logInWithDoubanAccount({
       username:ctx.request.body.username,
       password:ctx.request.body.password,
       userId:ctx.request.body.userId,
-    },{
-      solution:ctx.request.body.captchaSolution,
-      id:ctx.request.body.captchaId,
-    });
+    },captcha);
     if(user != null){
       ctx.rest(user);
     }else {
