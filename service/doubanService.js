@@ -3,6 +3,12 @@ const rp = require('request-promise')
 const cookieParser = require('set-cookie-parser')
 const url = require('url')
 const querystring = require('querystring')
+const _ = require('lodash')
+const request = require('request')
+const https = require('https')
+
+var curl = require('curlrequest');
+
 
 
 const MAIN_SITE_URL = 'https://www.douban.com/'
@@ -62,10 +68,11 @@ function login(userInfo, captcha) {
     resolveWithFullResponse: true
   }))
   .then((res) => {
-    const cookies = cookieParser.parse(res)
-    return cookies.filter((cookie) => {
+    const cookieValue = cookieParser.parse(res).filter((cookie) => {
       return cookie.name === 'dbcl2'
     })[0].value
+
+    return cookieValue
   })
   .then((loginCookie) => {
     return getMainSiteCookie(loginCookie).then((mainSiteCookie) => {
@@ -81,23 +88,19 @@ function login(userInfo, captcha) {
 }
 
 function getMainSiteCookie(loginCookie) {
-  console.log('loginCookie', loginCookie)
-  return rp.get(Object.assign({}, {
-    url: MAIN_SITE_URL,
-    headers: {
-      Cookie: `dbcl2=${loginCookie}`
-    },
-    simple: false,
-    resolveWithFullResponse: true
-  }))
-  .then((res) => {
-    console.log(res)
-    const cookies = cookieParser.parse(res)
-    console.log('main site cookies', cookies)
-    return cookies.filter((cookie) => {
-      return cookie === 'ck'
-    })[0].value
+  return new Promise((resolve, reject) => {
+    curl.request({
+      url: MAIN_SITE_URL,
+      include: true,
+      headers: {
+        Cookie: `dbcl2=${loginCookie}`
+      },
+    }, (err, res, meta) => {
+      const cookie = /ck=(.*?;)/.exec(res)[1]
+      resolve(cookie.split(';')[0])
+    })
   })
+
 }
 
 function markBookAsRead(bookId, cookies) {
@@ -123,13 +126,14 @@ function markBookAsRead(bookId, cookies) {
 
 // getCaptcha()
 
-// login({
-//   email: '',
-//   password: ''
-// }, {
-//   id: '',
-//   solution: ''
-// })
+login({
+  email: '',
+  password: ''
+}, {
+  id: '',
+  solution: ''
+})
+
 
 // markBookAsRead(26906797, {
 //   ck: '',
