@@ -4,11 +4,6 @@ const cookieParser = require('set-cookie-parser')
 const url = require('url')
 const querystring = require('querystring')
 const _ = require('lodash')
-const request = require('request')
-const https = require('https')
-
-var curl = require('curlrequest');
-
 
 
 const MAIN_SITE_URL = 'https://www.douban.com/'
@@ -100,19 +95,27 @@ function login(userInfo, captcha) {
 }
 
 function getMainSiteCookie(loginCookie) {
-  return new Promise((resolve, reject) => {
-    curl.request({
-      url: MAIN_SITE_URL,
-      include: true,
-      headers: {
-        Cookie: `dbcl2=${loginCookie}`
-      },
-    }, (err, res, meta) => {
-      const cookie = /ck=(.*?;)/.exec(res)[1]
-      resolve(cookie.split(';')[0])
-    })
-  })
+  return rp.get(Object.assign({}, commonRequestOptions, {
+    url: MAIN_SITE_URL,
+    headers: {
+      Cookie: `dbcl2=${loginCookie}`,
+      'User-Agent': 'Chrome/56.0.2924.87',
+    },
+    simple: false,
+    resolveWithFullResponse: true
+  })).then((res) => {
+    const cookie = cookieParser.parse(res).filter((cookie) => {
+      return cookie.name === 'ck'
+    })[0]
 
+    if(cookie) {
+      return cookie.value
+    } else {
+      return {
+        login: false
+      }
+    }
+  })
 }
 
 function markBookAsRead(bookId, cookies) {
@@ -122,7 +125,7 @@ function markBookAsRead(bookId, cookies) {
 
   rp.post(Object.assign({}, commonRequestOptions, {
       headers: {
-        Cookie: `dbcl2="${cookies.dbcl2}"`
+        Cookie: `dbcl2="${cookies.dbcl2}"`,
       },
       url: getBookUrl(bookId),
       formData
@@ -153,6 +156,8 @@ function markBookAsRead(bookId, cookies) {
 //   ck: '',
 //   dbcl2: ''
 // })
+
+// getMainSiteCookie('')
 
 module.exports = {
   getCaptcha,
