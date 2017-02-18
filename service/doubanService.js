@@ -68,16 +68,28 @@ function login(userInfo, captcha) {
     resolveWithFullResponse: true
   }))
   .then((res) => {
-    const cookieValue = cookieParser.parse(res).filter((cookie) => {
+    const cookie = cookieParser.parse(res).filter((cookie) => {
       return cookie.name === 'dbcl2'
-    })[0].value
+    })[0]
 
-    return cookieValue
-  })
-  .then((loginCookie) => {
-    return getMainSiteCookie(loginCookie).then((mainSiteCookie) => {
+    if (cookie) {
       return {
-        dbcl2: loginCookie,
+        login: true,
+        loginCookie: cookie.value
+      }
+    } else {
+      return {
+        login: false
+      }
+    }
+  })
+  .then((res) => {
+    if (!res.login) {
+      return res
+    }
+    return getMainSiteCookie(res.loginCookie).then((mainSiteCookie) => {
+      return {
+        dbcl2: res.loginCookie,
         ck: mainSiteCookie
       }
     })
@@ -126,13 +138,15 @@ function markBookAsRead(bookId, cookies) {
 
 // getCaptcha()
 
-login({
-  email: '',
-  password: ''
-}, {
-  id: '',
-  solution: ''
-})
+// login({
+//   email: '',
+//   password: ''
+// }, {
+//   id: '',
+//   solution: 'paper'
+// }).then((res) => {
+//   console.log('final', res)
+// })
 
 
 // markBookAsRead(26906797, {
