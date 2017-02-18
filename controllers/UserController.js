@@ -14,8 +14,19 @@ module.exports = {
     }
   },
 
+  'GET /douban/captcha': async(ctx, next) => {
+    ctx.rest(await users.getDoubanLoginCaptcha());
+  },
+
   'POST /user/douban/session': async (ctx, next)=>{
-    let user = await users.logInWithDoubanAccount(ctx.request.body.username,ctx.request.body.password);
+    let user = await users.logInWithDoubanAccount({
+      username:ctx.request.body.username,
+      password:ctx.request.body.password,
+      userId:ctx.request.body.userId,
+    },{
+      solution:ctx.request.body.solution,
+      id:ctx.request.body.id,
+    });
     if(user != null){
       ctx.rest(user);
     }else {
