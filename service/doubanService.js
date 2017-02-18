@@ -120,12 +120,12 @@ function getMainSiteCookie(loginCookie) {
 
 function markBookAsRead(bookId, cookies) {
   const formData = {
-    ck: cookies.ck
+    ck: cookies.ck.replace(/"/gm, '')
   }
 
-  rp.post(Object.assign({}, commonRequestOptions, {
+  return rp.post(Object.assign({}, commonRequestOptions, {
       headers: {
-        Cookie: `dbcl2="${cookies.dbcl2}"`,
+        Cookie: `dbcl2=${cookies.dbcl2}`,
         'User-Agent': 'Chrome/56.0.2924.87'
       },
       url: getBookUrl(bookId),
@@ -135,7 +135,7 @@ function markBookAsRead(bookId, cookies) {
       console.log('body', body)
     })
     .catch((err) => {
-      console.log('err', err)
+      console.log('err', err.StatusCodeError)
     })
 }
 
@@ -147,16 +147,18 @@ function markBookAsRead(bookId, cookies) {
 //   password: ''
 // }, {
 //   id: '',
-//   solution: 'paper'
+//   solution: ''
 // }).then((res) => {
-//   console.log('final', res)
+//   console.log('cookie', res)
+//   markBookAsRead(26906797, {
+//     ck: res.ck,
+//     dbcl2: res.dbcl2
+//   }).then((res) => {
+//     console.log(res)
+//   })
 // })
 
 
-// markBookAsRead(26906797, {
-//   ck: '',
-//   dbcl2: ''
-// })
 
 // getMainSiteCookie('')
 
