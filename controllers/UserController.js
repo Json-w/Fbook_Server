@@ -24,8 +24,8 @@ module.exports = {
       password:ctx.request.body.password,
       userId:ctx.request.body.userId,
     },{
-      solution:ctx.request.body.solution,
-      id:ctx.request.body.id,
+      solution:ctx.request.body.captchaSolution,
+      id:ctx.request.body.captchaId,
     });
     if(user != null){
       ctx.rest(user);
