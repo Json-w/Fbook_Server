@@ -23,6 +23,7 @@
     "koa-bodyparser": "3.2.0",
     "koa-router": "7.0.0",
     "lodash": "^4.17.4",
+    "marked": "^0.3.6",
     "mysql": "2.11.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
