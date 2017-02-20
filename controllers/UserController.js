@@ -1,4 +1,5 @@
-const users = require('../service/userService');
+const users = require('../service/UserService');
+const bookService = require('../service/BookService')
 
 module.exports = {
   'POST /user/session': async (ctx, next)=>{
@@ -35,5 +36,13 @@ module.exports = {
         message: 'register failure'
       })
     }
+  },
+
+  'GET /user/:id/books': async (ctx, next) => {
+    const findResult = await books.findBooksByUserId(ctx.params.userId);
+    ctx.rest({
+      code: 'success',
+      result:findResult,
+    });
   }
 }

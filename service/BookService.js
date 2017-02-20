@@ -31,5 +31,15 @@ module.exports = {
           include: [User]
         });
       return books;
+    },
+
+    deleteBookById: async (bookId)=>{
+      console.log(`BookService: deleting ${bookId}`);
+      let result = await Book.destroy({
+        where:{
+          id: bookId,
+        }
+      });
+      return result;
     }
 }

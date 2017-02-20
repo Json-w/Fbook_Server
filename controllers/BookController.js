@@ -27,6 +27,14 @@ module.exports = {
     })
   },
 
+  'DELETE /books/:id': async (ctx, next)=>{
+    let result = await books.deleteBookById(ctx.params.id);
+    ctx.rest({
+      code:'success',
+      result:result,
+    })
+  },
+
   'GET /books': async (ctx, next)=>{
     const findResult = await books.findAllBooks();
     ctx.rest({
@@ -34,12 +42,4 @@ module.exports = {
       result:findResult,
     })
   },
-
-  'GET /books/:userId': async (ctx, next)=>{
-    const findResult = await books.findBooksByUserId(ctx.params.userId);
-    ctx.rest({
-      code: 'success',
-      result:findResult,
-    });
-  }
 }
