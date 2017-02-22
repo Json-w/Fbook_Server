@@ -15,9 +15,13 @@ module.exports = {
       return false;
     },
 
-    findAllBooks: async ()=>{
+    findAllBooks: async (offset,limit)=>{
       Book.belongsTo(User,{foreignKey: "user_id"});
-      let books = await Book.findAll({include: [User]});
+      let books = await Book.findAll({
+        include: [User],
+        limit:parseInt(limit),
+        offset:parseInt(offset),
+      });
       return books;
     },
 
