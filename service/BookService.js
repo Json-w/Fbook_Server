@@ -15,12 +15,17 @@ module.exports = {
       return false;
     },
 
-    findAllBooks: async (offset,limit)=>{
+    findAllBooks: async (queryObj)=>{
       Book.belongsTo(User,{foreignKey: "user_id"});
       let books = await Book.findAll({
+        where:{
+          'bookName':{
+            '$like':'%'+queryObj.bookName+'%',
+          }
+        },
         include: [User],
-        limit:parseInt(limit),
-        offset:parseInt(offset),
+        limit:parseInt(queryObj.limit),
+        offset:parseInt(queryObj.offset),
       });
       return books;
     },

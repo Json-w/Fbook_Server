@@ -38,7 +38,13 @@ module.exports = {
   'GET /books': async (ctx, next)=>{
     let offset = ctx.query.offset || 0;
     let limit = ctx.query.limit || 10;
-    const findResult = await books.findAllBooks(offset,limit);
+    let bookName = ctx.query.name || '';
+    let queryObj = {
+      offset:offset,
+      limit:limit,
+      bookName:bookName,
+    }
+    const findResult = await books.findAllBooks(queryObj);
     ctx.rest({
       code: 'success',
       result:findResult,
