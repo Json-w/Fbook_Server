@@ -1,7 +1,8 @@
+let pwd=process.env.MYSQL_PASSWORD;
 const config = {
   database: 'Fbook',
   username: 'root',
-  password: '',
+  password: pwd,
   host: 'localhost',
   port: 3306,
 }
