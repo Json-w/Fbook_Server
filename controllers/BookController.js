@@ -1,7 +1,7 @@
 const books = require('../service/BookService');
 
 module.exports = {
-  'POST /book/add': async (ctx, next)=>{
+  'POST /books': async (ctx, next)=>{
     let book = {
       isbn:ctx.request.body.isbn,
       amount:ctx.request.body.amount,
