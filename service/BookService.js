@@ -31,13 +31,13 @@ module.exports = {
     },
 
     findBooksByUserId: async (userId)=>{
-      Book.belongsTo(User,{foreignKey: "user_id"});
+      // Book.belongsTo(User,{foreignKey: "user_id"});
       let books = await Book.findAll(
         {
           where:{
             user_id : userId,
           },
-          include: [User]
+          // include: [User]
         });
       return books;
     },

@@ -39,7 +39,7 @@ module.exports = {
   },
 
   'GET /user/:id/books': async (ctx, next) => {
-    const findResult = await bookService.findBooksByUserId(ctx.params.userId);
+    const findResult = await bookService.findBooksByUserId(ctx.params.id);
     ctx.rest({
       code: 'success',
       result:findResult,
