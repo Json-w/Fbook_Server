@@ -15,14 +15,14 @@ module.exports = {
     console.log(`BookController.js:${token}`);
     if(await books.addBook(book, token)){
       ctx.rest({
-        code: 'success',
+        code: '10000',
         message: 'add book success'
       })
       return;
     }
 
     ctx.rest({
-      code: 'failure',
+      code: '50000',
       message: 'add book failure'
     })
   },
@@ -30,8 +30,8 @@ module.exports = {
   'DELETE /books/:id': async (ctx, next)=>{
     let result = await books.deleteBookById(ctx.params.id);
     ctx.rest({
-      code:'success',
-      result:result,
+      code:'10000',
+      message:'delete book success',
     })
   },
 
@@ -46,7 +46,8 @@ module.exports = {
     }
     const findResult = await books.findAllBooks(queryObj);
     ctx.rest({
-      code: 'success',
+      code: '10000',
+      message: 'success',
       result:findResult,
     })
   },

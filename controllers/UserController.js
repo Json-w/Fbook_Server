@@ -5,7 +5,11 @@ module.exports = {
   'POST /user/session': async (ctx, next)=>{
     let user = await users.logIn(ctx.request.body.username,ctx.request.body.password);
     if(user != null){
-      ctx.rest(user);
+      ctx.rest({
+        code:1000,
+        message:"success",
+        result:user,
+      });
     }else {
       ctx.response.status = 400;
       ctx.rest({
@@ -27,7 +31,7 @@ module.exports = {
     let isRegisterSuccess = await users.register(user);
     if(isRegisterSuccess){
       ctx.rest({
-        code: 'success',
+        code: 1000,
         message: 'register success'
       })
     }else {
@@ -41,7 +45,8 @@ module.exports = {
   'GET /user/:id/books': async (ctx, next) => {
     const findResult = await bookService.findBooksByUserId(ctx.params.id);
     ctx.rest({
-      code: 'success',
+      code: 1000,
+      message: 'success',
       result:findResult,
     });
   }
