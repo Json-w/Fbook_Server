@@ -1,7 +1,6 @@
 const User = require('../models/User')
 const APIError = require('../middlewares/rest').APIError;
 const uuidV4 = require('uuid/v4');
-const doubanService = require('../service/doubanService');
 
 var tokenRecord = require('../tokenRecord');
 
@@ -60,25 +59,6 @@ module.exports = {
       console.log(JSON.stringify(tokenRecord.logedInUsers[0]));
       return user;
     },
-
-      getDoubanLoginCaptcha: async () => {
-        return await doubanService.getCaptcha();
-      },
-
-    // this url is just for the js community.
-    logInWithDoubanAccount: async (doubanUser, captcha) => {
-      let user = findUserById(doubanUser.userId);
-      if(!user){
-        throw new APIError('login:douban login error',
-                          'current douban account not bounds to Fbook user')
-      }
-
-      return await doubanService.login({
-            email:doubanUser.username,//email
-            password:doubanUser.password,
-          },captcha);
-    },
-
     register: async (user) => {
       if(checkUserExisted){
         throw new APIError('register:error','user already existed')
