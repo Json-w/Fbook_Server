@@ -15,5 +15,15 @@ module.exports = {
       offset:parseInt(queryObj.offset),
     });
     return results;
+  },
+
+  record: async (record)=>{
+    Record.belongsTo(User,{foreignKey: "user_id"});
+    Record.belongsTo(Book,{foreignKey: "book_id"});
+    record.user_id = record.userId;
+    record.book_id = record.bookId;
+
+    let recorded = await Record.create(record);
+    return recorded.id > 0 ? true:false;
   }
 }

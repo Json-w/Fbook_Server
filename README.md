@@ -11,6 +11,15 @@ code | message
 40001 | token过期
 50000 | 操作失败
 
+### Status In Book
+status | message
+0 | 不可借
+1 | 可借
+
+### Status In Record
+status | message
+0 | 借阅中
+1 | 已归还
 
 每个API返回格式
 ```
@@ -60,5 +69,18 @@ method | GET
 query parameters(optional)|offset,limit,name
 
 #### 借阅书籍
+key | value
+---|---
+address | http://localhost:3000/books
+method | POST
+parameters | userId,bookId,startTime(optional),status(optional)
+
+#### 查询借阅记录
+key | value
+---|---
+address | http://localhost:3000/books
+method | GET
+query parameters | userId,offset,limit
+
 
 #### 还书
