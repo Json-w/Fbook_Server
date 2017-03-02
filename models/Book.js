@@ -24,7 +24,7 @@ const Book = sequelize.define('book',{
   brief:Sequelize.STRING(45),
   times:Sequelize.INTEGER,
   imageUrl:Sequelize.STRING(75),
-  satus:Sequelize.INTEGER,
+  status:Sequelize.INTEGER,
   // user:{
   //   type:Sequelize.INTEGER,
   //   field:"user_id",
