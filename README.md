@@ -13,11 +13,13 @@ code | message
 
 ### Status In Book
 status | message
+---|---
 0 | 不可借
 1 | 可借
 
 ### Status In Record
 status | message
+---|---
 0 | 借阅中
 1 | 已归还
 
@@ -42,6 +44,12 @@ method | POST
 parameters|username,password
 请求格式|json
 #### 用户注册
+key | value
+---|---
+address | http://localhost:3000/user/register
+method | POST
+parameters | username password email telephone address imageUrl
+请求格式 | json
 
 ### book
 #### 删除书籍

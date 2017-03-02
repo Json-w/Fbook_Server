@@ -23,7 +23,8 @@ const Book = sequelize.define('book',{
   author:Sequelize.STRING(45),
   brief:Sequelize.STRING(45),
   times:Sequelize.INTEGER,
-  imageUrl:Sequelize.STRING(75)
+  imageUrl:Sequelize.STRING(75),
+  satus:Sequelize.INTEGER,
   // user:{
   //   type:Sequelize.INTEGER,
   //   field:"user_id",
