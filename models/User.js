@@ -1,17 +1,8 @@
 const Sequelize = require('sequelize');
 const config = require('../config');
+const ModelUtil = require('./ModelUtil')
 
-const sequelize = new Sequelize(config.database,config.username, config.password,{
-  host: config.host,
-  dialect: 'mysql',
-  pool:{
-    max:5,
-    min:0,
-    idle:30000,
-  }
-})
-
-const User = sequelize.define('user',{
+const User = ModelUtil.getSequelize().define('user',{
   id:{
     type: Sequelize.INTEGER,
     primaryKey: true,
