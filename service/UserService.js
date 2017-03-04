@@ -60,7 +60,7 @@ module.exports = {
       return user;
     },
     register: async (user) => {
-      if(checkUserExisted){
+      if(await checkUserExisted(user)){
         throw new APIError('register:error','user already existed')
       }
       let userCreated = await User.create(user);
