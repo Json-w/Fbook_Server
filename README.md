@@ -16,8 +16,8 @@ code | message
 ### Status In Book
 status | message
 ---|---
-0 | 不可借
-1 | 可借
+0 | 可借
+1 | 不可借
 
 ### Status In Record
 status | message
