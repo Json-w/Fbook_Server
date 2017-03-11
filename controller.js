@@ -28,6 +28,10 @@ function addMapping(router, mapping) {
       var path = url.substring(7);
       router.delete(path,mapping[url]);
       console.log(`register URL mapping DELETE ${path}`);
+    } else if (url.startsWith('PUT')) {
+      var path = url.substring(4);
+      router.put(path,mapping[url]);
+      console.log(`register URL mapping PUT ${path}`);
     }else {
       console.log(`invalid URL: ${url}`);
     }

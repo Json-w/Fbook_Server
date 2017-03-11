@@ -22,7 +22,7 @@ async function findUserById(userId){
       id:userId
     }
   })
-  return userFound.length > 0 ? true:false;
+  return userFound;
 }
 
 module.exports = {
@@ -59,11 +59,26 @@ module.exports = {
       console.log(JSON.stringify(tokenRecord.logedInUsers[0]));
       return user;
     },
+
     register: async (user) => {
       if(await checkUserExisted(user)){
         throw new APIError('register:error','user already existed')
       }
       let userCreated = await User.create(user);
       return userCreated.id > -1 ? true:false;
+    },
+
+    update: async (user) => {
+      let previousUser = await findUserById(user.id);
+      if(previousUser){
+        let updatedUser = await User.update(user,{
+          where:{
+            id:user.id,
+          }
+        });
+        return true;
+      }
+
+      return false;
     }
   }

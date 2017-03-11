@@ -42,6 +42,25 @@ module.exports = {
     }
   },
 
+  'PUT /user/': async (ctx, next) =>{
+    let user = {
+      id:ctx.request.body.id,
+      username:ctx.request.body.username,
+      password:ctx.request.body.password,
+      email:ctx.request.body.email,
+      telephone:ctx.request.body.telephone,
+      address:ctx.request.body.address,
+      imageUrl:ctx.request.body.imageUrl
+    };
+    let isUpdated = users.update(user);
+    if(isUpdated){
+      ctx.rest({
+        code:'10000',
+        message: 'success',
+      })
+    }
+  },
+
   'GET /user/:id/books': async (ctx, next) => {
     const findResult = await bookService.findBooksByUserId(ctx.params.id);
     ctx.rest({

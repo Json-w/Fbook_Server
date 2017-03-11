@@ -50,6 +50,13 @@ address | http://localhost:3000/user/register
 method | POST
 parameters | username password email telephone address imageUrl
 请求格式 | json
+#### 用户数据更新
+key | value
+---|---
+address | http://localhost:3000/user
+method | PUT
+parameters | id(must) 
+
 
 ### book
 #### 删除书籍
