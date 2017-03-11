@@ -1,5 +1,7 @@
 # Fbook
-
+## todo
+- [ ] 数据库密码加密
+- [ ] 权限控制
 ## API
 ### Error Code
 
@@ -20,8 +22,8 @@ status | message
 ### Status In Record
 status | message
 ---|---
-0 | 借阅中
-1 | 已归还
+0 | 已归还
+1 | 借阅中
 
 每个API返回格式
 ```
@@ -55,7 +57,7 @@ key | value
 ---|---
 address | http://localhost:3000/user
 method | PUT
-parameters | id(must) 
+parameters | id(must)
 
 
 ### book
@@ -99,3 +101,7 @@ query parameters | userId,offset,limit
 
 
 #### 还书
+key | value
+---|---
+address | http://localhost:3000/records
+method | PUT
