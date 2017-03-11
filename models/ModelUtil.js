@@ -12,7 +12,8 @@ module.exports = {
           max:5,
           min:0,
           idle:30000,
-        }
+        },
+        // logging:false,
       })
     }
     return sequelize;

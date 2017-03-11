@@ -36,7 +36,7 @@ module.exports = {
       })
     }else {
       ctx.rest({
-        code: 'failure',
+        code: '50000',
         message: 'register failure'
       })
     }
