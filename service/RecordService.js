@@ -24,6 +24,13 @@ module.exports = {
     record.book_id = record.bookId;
 
     let recorded = await Record.create(record);
+    if(recorded){
+      Book.update({status:1},{
+        where:{
+          id:record.bookId,
+        }
+      })
+    }
     return recorded.id > 0 ? true:false;
   },
 
@@ -38,6 +45,23 @@ module.exports = {
         id:record.id
       }
     })
+
+    if(recordUpdateCount){
+      if(!record.bookId){
+        let recordInDB = await Record.findAll({
+          where:{
+            id:record.id,
+          }
+        })
+        record.bookId = recordInDB[0].book_id;
+      }
+
+      Book.update({status:0},{
+        where:{
+          id:record.bookId,
+        }
+      })
+    }
     return recordUpdateCount > 0 ? true:false;
   }
 }
