@@ -88,7 +88,7 @@ query parameters(optional)|offset,limit,name
 #### 借阅书籍
 key | value
 ---|---
-address | http://localhost:3000/books
+address | http://localhost:3000/records
 method | POST
 parameters | userId,bookId,startTime(optional),status(optional)
 
