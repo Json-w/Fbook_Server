@@ -21,7 +21,7 @@ module.exports = {
         }
       }
       console.log('validate failure');
-      throw new APIError('auth:failure','token validate error');
+      throw new APIError('40001','token validate error');
     }
   }
 }
