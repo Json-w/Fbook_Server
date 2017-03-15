@@ -9,7 +9,7 @@ const renderMarkdown = require('./middlewares/markdownRender');
 app.use(bodyParser());
 app.use(rest.restify());
 //developing
-// app.use(filter.tokenValidate());
+app.use(filter.tokenValidate());
 app.use(renderMarkdown.renderMarkdown())
 app.use(controller());
 app.listen(3000);
