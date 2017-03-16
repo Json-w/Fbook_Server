@@ -6,7 +6,7 @@ module.exports = {
   tokenValidate:() => {
     return async (ctx, next) => {
       console.log(`request url:${ctx.url}`);
-      for(url of noValidateUrls){
+      for(let url of noValidateUrls){
           if(ctx.url.split('?')[0] === url){
             await next();
             return;
@@ -14,7 +14,7 @@ module.exports = {
       }
       let token = ctx.query.token;
       console.log();
-      for(logedInUser of tokenRecord.logedInUsers){
+      for(let logedInUser of tokenRecord.logedInUsers){
         if(token === logedInUser.token){
           await next();
           return;

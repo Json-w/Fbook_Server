@@ -43,16 +43,14 @@ module.exports = {
   },
 
   'PUT /user/': async (ctx, next) =>{
-    let user = {
-      id:ctx.request.body.id,
-      username:ctx.request.body.username,
-      password:ctx.request.body.password,
-      email:ctx.request.body.email,
-      telephone:ctx.request.body.telephone,
-      address:ctx.request.body.address,
-      imageUrl:ctx.request.body.imageUrl
-    };
-    let isUpdated = users.update(user);
+    let user = {};
+    ['id', 'username', 'password', 'email', 'telephone', 'address', 'imageUrl'].forEach((k) => {
+      let v = ctx.request.body[k]
+      if(v !== undefined && v !== null) {
+        user[k] = v
+      }
+    })
+    let isUpdated = await users.update(user);
     if(isUpdated){
       ctx.rest({
         code:'10000',

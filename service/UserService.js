@@ -71,7 +71,7 @@ module.exports = {
     update: async (user) => {
       let previousUser = await findUserById(user.id);
       if(previousUser){
-        let updatedUser = await User.update({...previousUser, ...user},{
+        let updatedUser = await User.update(user, {
           where:{
             id:user.id,
           }
