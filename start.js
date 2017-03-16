@@ -1,3 +1,4 @@
+require('babel-polyfill')
 var register = require('babel-core/register')
 
 register({
