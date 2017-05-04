@@ -1,4 +1,4 @@
-const books = require('../service/BookService');
+import books from '../service/BookService';
 
 module.exports = {
   'POST /books': async(ctx, next)=> {
@@ -34,26 +34,26 @@ module.exports = {
         code: '10000',
         message: 'delete book success',
       })
-    }else{
+    } else {
       ctx.rest({
-        code:'50000',
-        message:'delete book failure',
+        code: '50000',
+        message: 'delete book failure',
       })
     }
   },
 
   'GET /books/:id': async(ctx, next)=> {
     let result = await books.findBookById(ctx.params.id);
-    if(result){
+    if (result) {
       ctx.rest({
-        code:'10000',
-        message:'success',
-        result:result
+        code: '10000',
+        message: 'success',
+        result: result
       })
-    }else{
+    } else {
       ctx.rest({
-        code:'50000',
-        message:'find book failure',
+        code: '50000',
+        message: 'find book failure',
       })
     }
   },
