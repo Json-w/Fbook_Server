@@ -1,6 +1,8 @@
 const Book = require('../models/Book')
 const User = require('../models/User')
 const tokenRecord = require('../tokenRecord')
+import recordService from './RecordService'
+
 module.exports = {
   addBook: async(book, token)=> {
     Book.belongsTo(User, {foreignKey: "user_id"});
@@ -44,6 +46,7 @@ module.exports = {
 
   deleteBookById: async(bookId)=> {
     console.log(`BookService: deleting ${bookId}`);
+    recordService.deleteRecordsByBookId(bookId);
     let result = await Book.destroy({
       where: {
         id: bookId,

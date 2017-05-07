@@ -1,4 +1,5 @@
 import books from '../service/BookService';
+import permissionService from '../service/PermissionService';
 
 module.exports = {
   'POST /books': async(ctx, next)=> {
@@ -28,6 +29,14 @@ module.exports = {
   },
 
   'DELETE /books/:id': async(ctx, next)=> {
+    let book = await books.findBookById(ctx.params.id);
+    if (!await permissionService.checkOwner(ctx.query.token, book.user_id)) {
+      ctx.rest({
+        code: '50000',
+        message: 'permission denied',
+      })
+      return;
+    }
     let result = await books.deleteBookById(ctx.params.id);
     if (result) {
       ctx.rest({
