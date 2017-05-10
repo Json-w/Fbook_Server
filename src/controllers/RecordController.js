@@ -1,4 +1,4 @@
-const recordService = require('../service/RecordService');
+import recordService from '../service/RecordService';
 const bookService = require('../service/BookService');
 
 module.exports = {
