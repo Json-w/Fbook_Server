@@ -14,7 +14,8 @@ module.exports = {
       }
       let token = ctx.query.token;
       let result = await tokenService.getUser(token);
-      if (!result) {
+      console.log(`get result from redis:${!result}`);
+      if (result) {
         await next();
         return;
       }
