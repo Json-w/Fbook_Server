@@ -12,7 +12,7 @@ export default {
     client.set(userWithToken.user.token, JSON.stringify(userWithToken), 'EX', 24 * 60 * 60 * 7);
   },
 
-  getUser: (token)=> {
-    return JSON.parse(client.getAsync(token)).user;
+  getUser:async (token)=> {
+    return JSON.parse(await client.getAsync(token)).user;
   }
 }
