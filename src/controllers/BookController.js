@@ -13,7 +13,6 @@ module.exports = {
       imageUrl: ctx.request.body.imageUrl,
     }
     let token = ctx.query.token;
-    console.log(`BookController.js:${token}`);
     if (await books.addBook(book, token)) {
       ctx.rest({
         code: '10000',

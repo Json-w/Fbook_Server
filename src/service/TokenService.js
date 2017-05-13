@@ -13,6 +13,6 @@ export default {
   },
 
   getUser: (token)=> {
-    return client.getAsync(token);
+    return JSON.parse(client.getAsync(token)).user;
   }
 }
