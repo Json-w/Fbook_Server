@@ -9,7 +9,7 @@ module.exports = {
     Book.belongsTo(User, {foreignKey: "user_id"});
     let user = tokenService.getUser(token)
     if (token === user.token) {
-      book.user_id = user.user.id;
+      book.user_id = user.id;
       console.log(`the book ready to save:${JSON.stringify(book)}`);
       let savedBook = await Book.create(book);
       return savedBook.id > -1 ? true : false;
