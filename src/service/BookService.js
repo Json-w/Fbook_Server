@@ -7,7 +7,7 @@ import tokenService from './TokenService'
 module.exports = {
   addBook: async(book, token)=> {
     Book.belongsTo(User, {foreignKey: "user_id"});
-    let user = tokenService.getUser(token)
+    let user = await tokenService.getUser(token)
     if (token === user.token) {
       book.user_id = user.id;
       console.log(`the book ready to save:${JSON.stringify(book)}`);
