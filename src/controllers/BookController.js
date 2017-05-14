@@ -29,7 +29,7 @@ module.exports = {
 
   'DELETE /books/:id': async(ctx, next)=> {
     let book = await books.findBookById(ctx.params.id);
-    if (!await permissionService.checkOwner(ctx.query.token, book.user_id)) {
+    if (!await permissionService.checkOwner(ctx.query.token, book.userId)) {
       ctx.rest({
         code: '50000',
         message: 'permission denied',

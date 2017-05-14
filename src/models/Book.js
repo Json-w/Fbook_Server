@@ -17,6 +17,10 @@ const Book = ModelUtil.getSequelize().define('book',{
   times:Sequelize.INTEGER,
   imageUrl:Sequelize.STRING(75),
   status:Sequelize.INTEGER,
+  userId:{
+    type:Sequelize.INTEGER,
+    field:"user_id",
+  }
   // user:{
   //   type:Sequelize.INTEGER,
   //   field:"user_id",

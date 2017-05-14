@@ -63,6 +63,6 @@ module.exports = {
         }
       }
     );
-    return result;
+    return result[0];
   }
 }
