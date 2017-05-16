@@ -31,7 +31,7 @@ export default {
         }
       })
     }
-    return recorded.id > 0 ? true : false;
+    return recorded.id > 0;
   },
 
   update: async(record)=> {
@@ -62,7 +62,7 @@ export default {
         }
       })
     }
-    return recordUpdateCount > 0 ? true : false;
+    return recordUpdateCount > 0;
   },
 
   deleteRecordsByBookId: async(bookId)=> {
