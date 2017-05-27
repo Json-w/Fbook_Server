@@ -1,5 +1,5 @@
 import users from '../service/UserService';
-const bookService = require('../service/BookService')
+import bookService from '../service/BookService';
 import permissionService from '../service/PermissionService';
 
 module.exports = {
