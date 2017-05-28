@@ -1,8 +1,6 @@
 const Record = require('../models/Record');
 const User = require('../models/User')
 const Book = require('../models/Book')
-import bookService from './BookService'
-import tokenService  from './TokenService'
 
 export default {
   getRecordsByUserId: async(queryObj)=> {
@@ -75,12 +73,5 @@ export default {
     })
 
     return result > 0;
-  },
-
-  checkPermission: async(token, bookId)=> {
-    console.log(`bookId:${bookId}`)
-    let bookFound = await bookService.findBookById(bookId);
-    let bookOwner = await tokenService.getUser(token);
-    return bookFound.userId === bookOwner.id;
   }
 }

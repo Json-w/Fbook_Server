@@ -4,7 +4,7 @@ const tokenRecord = require('../tokenRecord')
 import recordService from './RecordService'
 import tokenService from './TokenService'
 
-export default {
+module.exports = {
   addBook: async(book, token)=> {
     Book.belongsTo(User, {foreignKey: "user_id"});
     let user = await tokenService.getUser(token)
@@ -64,5 +64,5 @@ export default {
       }
     );
     return result[0];
-  },
+  }
 }

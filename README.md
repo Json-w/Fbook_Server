@@ -26,7 +26,6 @@ status | message
 ---|---
 0 | 已归还
 1 | 借阅中
-2 | pending
 
 每个API返回格式
 ```
