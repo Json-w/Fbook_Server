@@ -107,3 +107,11 @@ key | value
 ---|---
 address | http://localhost:3000/records
 method | PUT
+
+### 新增API
+根据书籍获取借阅记录
+http://localhost:3000/books/41/records?token=xxx&status=0
+
+获取用户信息
+http://localhost:3000/user/1?token=xx
+

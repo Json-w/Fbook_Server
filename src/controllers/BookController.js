@@ -1,5 +1,6 @@
 import books from '../service/BookService';
 import permissionService from '../service/PermissionService';
+import recordService from '../service/RecordService'
 
 module.exports = {
   'POST /books': async(ctx, next)=> {
@@ -82,4 +83,20 @@ module.exports = {
       result: findResult,
     })
   },
+
+  'GET /books/:id/records': async(ctx, next)=> {
+    let queryObj = {
+      bookId: ctx.params.id,
+      status: ctx.query.status || 1,
+      offset: ctx.query.offset || 0,
+      limit: ctx.query.limit || 10
+    }
+
+    const findResult = await recordService.getRecordsByBookId(queryObj);
+    ctx.rest({
+      code: '10000',
+      message: 'success',
+      result: findResult,
+    })
+  }
 }

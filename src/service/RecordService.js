@@ -73,5 +73,22 @@ export default {
     })
 
     return result > 0;
+  },
+  getRecordsByBookId: async(queryObj)=> {
+    Record.belongsTo(User, {foreignKey: "user_id"});
+    Record.belongsTo(Book, {foreignKey: "book_id"});
+    let results = await Record.findAll({
+      where: {
+        book_id: queryObj.bookId,
+        status: queryObj.status,
+      },
+      include: [User, Book],
+      limit: parseInt(queryObj.limit),
+      offset: parseInt(queryObj.offset),
+    });
+    results.map((result)=>{
+      return result.user.password=null;
+    });
+    return results;
   }
 }
