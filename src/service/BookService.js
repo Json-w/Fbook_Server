@@ -12,7 +12,7 @@ module.exports = {
       book.user_id = user.id;
       console.log(`the book ready to save:${JSON.stringify(book)}`);
       let savedBook = await Book.create(book);
-      return savedBook.id > -1 ? true : false;
+      return savedBook.id > -1;
     }
     return false;
   },

@@ -75,5 +75,21 @@ module.exports = {
       message: 'success',
       result: findResult,
     });
+  },
+
+  'GET /user/:id': async(ctx, next)=> {
+    const findResult = await users.findUserById(ctx.params.id);
+    if (findResult) {
+      ctx.rest({
+        code: '10000',
+        message: 'success',
+        result: findResult,
+      });
+    } else {
+      ctx.rest({
+        code: '50000',
+        message: 'user not found',
+      })
+    }
   }
 }

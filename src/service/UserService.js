@@ -79,5 +79,13 @@ export default {
     }
 
     return false;
+  },
+  findUserById: async(userId)=> {
+    let result = await findUserById(userId);
+    if (result) {
+      let user = result[0];
+      user.password = null;
+      return user;
+    }
   }
 }
