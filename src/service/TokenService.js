@@ -5,14 +5,21 @@ const client = redis.createClient({
   host: '127.0.0.1',
   port: '6379',
 })
+
+const ONE_WEEK = 24 * 60 * 60 * 7
 bluebird.promisifyAll(redis.RedisClient.prototype);
 
 export default {
   saveUser: (userWithToken)=> {
-    client.set(userWithToken.user.token, JSON.stringify(userWithToken), 'EX', 24 * 60 * 60 * 7);
+    client.set(userWithToken.user.token, JSON.stringify(userWithToken), 'EX', ONE_WEEK);
   },
 
-  getUser:async (token)=> {
-    return JSON.parse(await client.getAsync(token)).user;
+  getUser: async(token)=> {
+    let result = await client.getAsync(token);
+    if (result) {
+      return JSON.parse(result).user;
+    } else {
+      return null;
+    }
   }
 }
