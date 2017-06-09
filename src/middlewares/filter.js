@@ -1,7 +1,7 @@
 const APIError = require('./rest').APIError;
 import tokenService from '../service/TokenService'
 
-const noValidateUrls = ['/user/session', '/user/register'];
+const noValidateUrls = ['/user/session', '/user/register','/books'];
 module.exports = {
   tokenValidate: () => {
     return async(ctx, next) => {
