@@ -21,5 +21,13 @@ export default {
     } else {
       return null;
     }
-  }
+  },
+
+  set: (redisSaveObj)=> {
+    client.set(redisSaveObj.key, redisSaveObj.value, 'EX', redisSaveObj.expire);
+  },
+
+  get: async(token)=> {
+    return JSON.parse(await client.getAsync(token));
+  },
 }

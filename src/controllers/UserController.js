@@ -1,6 +1,8 @@
 import users from '../service/UserService';
 const bookService = require('../service/BookService')
 import permissionService from '../service/PermissionService';
+import emailService from '../service/EmailService';
+import tokenService from '../service/TokenService';
 
 module.exports = {
   'POST /user/session': async(ctx, next)=> {
@@ -29,16 +31,52 @@ module.exports = {
       address: ctx.request.body.address,
       imageUrl: ctx.request.body.imageUrl
     }
-    let isRegisterSuccess = await users.register(user);
-    if (isRegisterSuccess) {
+    if (await users.checkUserExisted(user)) {
+      throw new APIError('register:error', 'user already existed')
+    }
+    let emailUUID = await users.saveUserInfoToRedis(user);
+    let result = await emailService.sendMessage({
+      to: user.email,
+      subject: 'please verify your email.',
+      html: '<h2>please verify your email by below link:</h2>' +
+      // `<p>http://182.254.228.128:3000/user/verify/${emailUUID}</p>` +
+      `<p>http://localhost:3000/user/verify/${emailUUID}</p>` +
+      '<br> <p>if you don\'t have the context about this email,please ignore it.</p>'
+    })
+    console.log(`send email result:${result}`);
+    if (result) {
       ctx.rest({
         code: '10000',
-        message: 'register success'
+        message: 'please verify your email'
       })
     } else {
       ctx.rest({
         code: '50000',
         message: 'register failure'
+      })
+    }
+  },
+
+  'GET /user/verify/:uuid': async(ctx, next)=> {
+    let userInfo = await tokenService.get(ctx.params.uuid);
+    console.log()
+    if (userInfo) {
+      let isRegisterSuccess = await users.register(userInfo);
+      if (isRegisterSuccess) {
+        ctx.rest({
+          code: '10000',
+          message: 'register success!!'
+        })
+      } else {
+        ctx.rest({
+          code: '50000',
+          message: 'register failure!!'
+        })
+      }
+    } else {
+      ctx.rest({
+        code: '50000',
+        message: 'verify failure due to expire.'
       })
     }
   },

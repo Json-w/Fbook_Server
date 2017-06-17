@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const APIError = require('../middlewares/rest').APIError;
 const uuidV4 = require('uuid/v4');
+const thirtyMins = 60 * 30;
 import md5 from 'md5';
 
 import tokenService from './TokenService';
@@ -9,7 +10,6 @@ async function checkUserExisted(user) {
   let userFound = await User.findAll({
     where: {
       $or: {
-        username: user.username,
         email: user.email,
       }
     }
@@ -32,7 +32,6 @@ export default {
       where: {
         password: md5(password),
         $or: {
-          username: username,
           email: username,
         }
       }
@@ -87,5 +86,18 @@ export default {
       user.password = null;
       return user;
     }
+  },
+
+  saveUserInfoToRedis: async(userInfo)=> {
+    let emailUUID = uuidV4();
+    tokenService.set({
+      key: emailUUID,
+      value: JSON.stringify(userInfo),
+      expire: thirtyMins,
+    })
+    return emailUUID;
+  },
+  checkUserExisted: async(user)=> {
+    return checkUserExisted(user);
   }
 }

@@ -29,6 +29,7 @@
     "marked": "^0.3.6",
     "md5": "^2.2.1",
     "mysql": "2.11.1",
+    "nodemailer": "^4.0.1",
     "redis": "^2.7.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
