@@ -31,9 +31,7 @@ export default {
     let users = await User.findAll({
       where: {
         password: md5(password),
-        $or: {
-          email: username,
-        }
+        email: username,
       }
     });
     console.log(`userService : ${users.length}`);

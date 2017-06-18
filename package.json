@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ENV=dev babel-watch src/app.js",
     "build": "babel src -d dist",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && node dist/app.js",
+    "test": "mocha --compilers js:babel-core/register $(find test -name '*.js')"
   },
   "keywords": [
     "koa",
@@ -40,6 +41,10 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-watch": "^2.0.6",
-    "nodemon": "^1.11.0"
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "should": "^11.2.1",
+    "sinon": "^2.3.4",
+    "supertest": "^3.0.0"
   }
 }
