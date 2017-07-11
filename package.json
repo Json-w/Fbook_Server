@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ENV=dev MYSQL_PASSWORD='' babel-watch src/app.js",
     "build": "babel src -d dist",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && pm2 start dist/app.js"
   },
   "keywords": [
     "koa",
