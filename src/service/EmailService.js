@@ -7,7 +7,7 @@ let smtpConfig = {
   port: 25,
   auth: {
     user: 'wangpei9679@163.com',
-    pass: '1qaz1QAZ1qaz'
+    pass: '*******'
   }
 }
 let transporter = nodemailer.createTransport(smtpConfig, {from: 'wangpei9679@163.com'});
