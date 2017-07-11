@@ -4,3 +4,4 @@
 #kill -9 $pid
 #echo killed success
 pm2 stop app
+pm2 delete app
