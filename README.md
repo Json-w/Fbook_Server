@@ -47,6 +47,27 @@ address | http://localhost:3000/user/session
 method | POST
 parameters|username,password
 请求格式|json
+##### request
+```
+{"username":"wangpei","password":"wangpei"}
+```
+##### response
+```
+{
+    "code": "10000",
+    "message": "success",
+    "result": {
+        "id": 28,
+        "username": "wangpei",
+        "password": null,
+        "email": "519875872@qq.com",
+        "telephone": null,
+        "address": null,
+        "token": "26b00a70-8620-48d8-b091-037537b412f7"
+    }
+}
+```
+
 #### 用户注册
 key | value
 ---|---
@@ -54,6 +75,24 @@ address | http://localhost:3000/user/register
 method | POST
 parameters | username password email telephone address imageUrl
 请求格式 | json
+##### request
+```
+{"username":"wangpei","password":"wangpei","email":"519875872@qq.com"}
+```
+##### response
+```
+{
+    "code": "10000",
+    "message": "register success"
+}
+```
+```
+{
+    "code": "50000",
+    "message": "register failure"
+}
+```
+
 #### 用户数据更新
 key | value
 ---|---

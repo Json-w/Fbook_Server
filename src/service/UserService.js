@@ -56,7 +56,7 @@ export default {
   register: async(user) => {
 
     if (await checkUserExisted(user)) {
-      throw new APIError('register:error', 'user already existed')
+      return false;
     }
     user.password = md5(user.password);
     let userCreated = await User.create(user);

@@ -4,7 +4,7 @@
   "description": "this is server for Fbook",
   "main": "start.js",
   "scripts": {
-    "dev": "ENV=dev babel-watch src/app.js",
+    "dev": "ENV=dev MYSQL_PASSWORD='' babel-watch src/app.js",
     "build": "babel src -d dist",
     "start": "npm run build && node dist/app.js"
   },
