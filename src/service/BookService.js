@@ -28,10 +28,14 @@ module.exports = {
       limit: parseInt(queryObj.limit),
       offset: parseInt(queryObj.offset),
     });
-    return books.map((book)=>{
-      book.user.password='';
+    return books.map((book)=> {
+      book.user.password = '';
       return book;
     });
+  },
+
+  countBooks: async()=> {
+    return await Book.count();
   },
 
   findBooksByUserId: async(userId)=> {
