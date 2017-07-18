@@ -1,0 +1,51 @@
+---
+swagger: "2.0"
+info:
+  description: "this is apis for Fbook Server"
+  version: "1.0.0"
+  title: "Fbook Server"
+  contact:
+    email: "wangpei9679@163.com"
+host: "182.254.228.128:3000"
+basePath: "/"
+tags:
+- name: "user"
+  description: "Everything about your Pets"
+schemes:
+- "http"
+paths:
+  /user/session:
+    post:
+      tags:
+      - "user"
+      summary: "login"
+      description: ""
+      operationId: "userLogin"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "username and password"
+        required: true
+        schema:
+          $ref: "#/definitions/loginUser"
+      responses:
+        405:
+          description: "Invalid input"
+
+definitions:
+  loginUser:
+    type: "object"
+    required:
+    - "username"
+    - "password"
+    properties:
+      username:
+        type: "string"
+        example: "pei"
+      password:
+        type: "string"
+        example: "pei"

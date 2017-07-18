@@ -6,6 +6,10 @@ const controller = require('./controller');
 const rest = require('./middlewares/rest');
 const filter = require('./middlewares/filter');
 const renderMarkdown = require('./middlewares/markdownRender');
+const staticServer = require('koa-static');
+const path = require('path')
+
+app.use(staticServer(path.join( __dirname, '../public')))
 app.use(bodyParser());
 app.use(rest.restify());
 console.log(process.env.ENV);
