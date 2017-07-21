@@ -77,7 +77,7 @@ module.exports = {
       bookName: bookName,
     }
     const findResult = await books.findAllBooks(queryObj);
-    const totalCount = await books.countBooks();
+    const totalCount = await books.countBooks(queryObj);
     ctx.rest({
       code: '10000',
       message: 'success',

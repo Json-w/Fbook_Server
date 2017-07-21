@@ -34,8 +34,14 @@ module.exports = {
     });
   },
 
-  countBooks: async()=> {
-    return await Book.count();
+  countBooks: async(queryObj)=> {
+    return await Book.count({
+      where: {
+        'bookName': {
+          '$like': '%' + queryObj.bookName + '%',
+        }
+      }
+    });
   },
 
   findBooksByUserId: async(userId)=> {
